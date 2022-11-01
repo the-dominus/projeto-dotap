@@ -17,53 +17,55 @@ ArrayList<RegistroPorData> registros = (ArrayList<RegistroPorData>) request.getA
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<jsp:include page="/componentes/head.jsp" />
+<link href="/projeto-dotap/colaborador/meus-registros.css"
+	rel="stylesheet" />
 <title>Meus Registros | DOTAP</title>
 </head>
 
 <body>
 	<jsp:include page="../componentes/navbar.jsp" />
-	<main>
+	<div class="content">
 		<jsp:include page="componentes/aside.jsp" />
 
-		<section>
-		
+		<main>
+
 			<jsp:include page="../componentes/message.jsp" />
 
 
-			<form id="formData"
+			<form class="tableHeader" id="formData"
 				action="/projeto-dotap/colaborador/meus-registros">
+				<h1>Meus Registros</h1>
 				<input id="data" name="data" type="month"
 					value="<%=(request.getParameter("data") == null) ? simpleDateformat.format(now) : request.getParameter("data")%>" />
 			</form>
 
 
-			<div align="center">
-				<table border="1" cellpadding="5">
-					<caption>
-						<h2>Meus Registros</h2>
-					</caption>
+
+			<table>
+				<thead>
 					<tr>
 						<th>Data</th>
 						<th>Registros</th>
-						<th>Total de horas</th>
+						<th>Total de Horas</th>
 					</tr>
-					<c:forEach var="registro" items="${registros}">
-						<tr>
-							<td><c:out value="${registro.data}" /></td>
-							<td>
-								<c:forEach var="hora" items="${registro.horas}">
-									| <c:out value="${hora}" /> |
-								</c:forEach>
-							</td>
-							<td><c:out value="${registro.totalDeHoras}" /></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
+				</thead>
+				<tbody>
+				<c:forEach var="registro" items="${registros}">
+					<tr>
+						<td><c:out value="${registro.data}" /></td>
+						<td class="registers"><c:forEach var="hora" items="${registro.horas}"><p class="point">
+									<c:out value="${hora}" />
+								</p></c:forEach></td>
+						<td><c:out value="${registro.totalDeHoras}" /></td>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
 
-		</section>
-	</main>
+
+		</main>
+	</div>
 
 	<script type="text/javascript" src="meus-registros.js"></script>
 </body>

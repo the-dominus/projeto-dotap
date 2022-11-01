@@ -71,7 +71,7 @@ public class ColaboradorDAO {
 		Connection connnection = ConnectionManager.getConnection();
 		ArrayList<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
 
-		String sql = "SELECT s.id, data_hora, t.nome AS 'tipo', st.nome 'status'";
+		String sql = "SELECT s.id, data_hora, id_tipo, id_status, t.nome AS 'tipo', st.nome 'status'";
 		sql += " FROM solicitacoes s";
 		sql += " INNER JOIN tipo_solicitacoes t";
 		sql += " ON t.id = s.id_tipo";
@@ -91,6 +91,9 @@ public class ColaboradorDAO {
 			solicitacao.setDataHora(rs.getTimestamp("data_hora"));
 			solicitacao.setTipo(rs.getString("tipo"));
 			solicitacao.setStatus(rs.getString("status"));
+			solicitacao.setIdTipo(rs.getInt("id_tipo"));
+			solicitacao.setIdStatus(rs.getInt("id_status"));
+			
 			
 			solicitacoes.add(solicitacao);
 		}

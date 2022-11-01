@@ -165,7 +165,7 @@ public class ColaboradorController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
-		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/incluir-ponto.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");
 
 		try {
 			String dataHora = data + " " + hora;
