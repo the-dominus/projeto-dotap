@@ -12,7 +12,6 @@ btnRemoveRegister.onclick = function() {
 }
 
 window.onclick = function(event) {
-  console.log("")
   if (event.target == modalAdd) {
     modalAdd.style.display = "none";
   }
@@ -20,3 +19,29 @@ window.onclick = function(event) {
     modalRemove.style.display = "none";
   }
 }
+
+
+const inputData = document.querySelector("#data-modal-remove")
+const inputsHora = document.querySelectorAll("#hora-modal-remove")
+const formData = document.querySelector("#formModalRemove")
+
+inputData.addEventListener('change', () => {
+	
+	formData.action = "/projeto-dotap/colaborador/pegar-pontos-por-data"
+	formData.method = "GET"
+	
+	inputsHora.forEach((input) => {
+		input.checked = false;
+	})
+	
+	 formData.submit()
+})
+
+window.addEventListener("load", () => {
+	const data = new URLSearchParams(window.location.search).get("data");
+	
+	if (data !== null) {
+		modalRemove.style.display = "block";
+	}
+})
+

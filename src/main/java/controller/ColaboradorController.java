@@ -176,7 +176,6 @@ public class ColaboradorController extends HttpServlet {
 
 			String message = "Solicitação feita com sucesso!";
 			request.setAttribute("message", message);
-			rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String message = "Ocorreu com a conexão ao banco de dados!";
@@ -195,7 +194,7 @@ public class ColaboradorController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
-		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/excluir-ponto.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");
 
 		try {
 			
@@ -222,7 +221,7 @@ public class ColaboradorController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
-		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/excluir-ponto.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");
 
 		try {
 			
@@ -233,7 +232,6 @@ public class ColaboradorController extends HttpServlet {
 			
 			String message = "Solicitação feita com sucesso!";
 			request.setAttribute("message", message);
-			rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String message = "Ocorreu com a conexão ao banco de dados!";			

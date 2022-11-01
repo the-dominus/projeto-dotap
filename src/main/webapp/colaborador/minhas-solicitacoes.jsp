@@ -1,8 +1,7 @@
 
+<%@page import="model.RegistroPorData"%>
 <%@page import="model.Solicitacao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,12 +9,16 @@
 <fmt:setTimeZone value="pt_BR" scope="session"/>
 
 
+<jsp:include page="../componentes/checarUsuario.jsp" />
+<jsp:include page="componentes/checarPermissao.jsp" />
+
+
 <%
-Date now = new Date();
-
-SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE, dd/MM/YYYY - HH:mm");
-
 ArrayList<Solicitacao> solicitacoes = (ArrayList<Solicitacao>) request.getAttribute("solicitacoes");
+
+String data = request.getParameter("data");
+
+RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 %>
 
 <!DOCTYPE html>
@@ -34,19 +37,28 @@ ArrayList<Solicitacao> solicitacoes = (ArrayList<Solicitacao>) request.getAttrib
 		<!-- Modal content -->
 		<div class="modal-container">
 			<h1>Exclusão</h1>
-			<form  action="/projeto-dotap/colaborador/excluir-ponto"
+			<form id="formModalRemove" action="/projeto-dotap/colaborador/excluir-ponto"
 				method="POST" class="modal-content">
 				<div class="modal-input">
-					<label for="Data:" id="Data">Data:</label> <input type="date"
-						id="password" name="data"/>
+					<label for="data-modal-remove" >Data:</label> <input id="data-modal-remove" type="date" name="data" placeholder="00/00/0000" required
+						value="<%=data%>"/>
 				</div>
 				<div class="modal-input">
-					<label for="Hora:" id="hour">Hora:</label> <select>
-						<option>13:00</option>
-						<option>13:00</option>
-						<option>13:00</option>
-					</select>
+<!-- 					<label for="Hora:" id="hour">Hora:</label> <select> -->
+<!-- 						<option>13:00</option> -->
+<!-- 						<option>13:00</option> -->
+<!-- 						<option>13:00</option> -->
+<!-- 					</select> -->
+					<c:forEach var="hora" items="${registro.horas}">
+						<div>
+							<label>
+							<input type="radio" required value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />" id="hora-modal-remove" name="hora" >
+							 <c:out	value="${hora.valor}" />
+							</label>
+						</div>
+					</c:forEach>
 				</div>
+				
 				<button class="btnBlue">Solicitar Exclusão</button>
 			</form>
 		</div>
@@ -59,12 +71,12 @@ ArrayList<Solicitacao> solicitacoes = (ArrayList<Solicitacao>) request.getAttrib
 				class="modal-content">
 				<jsp:include page="../componentes/message.jsp" />
 				<div class="modal-input">
-					<label for="Data:" id="data">Data:</label> <input type="date"
-						name="data" id="data" />
+					<label for="data-modal-add" >Data:</label> <input type="date"
+						name="data" id="data-modal-add" />
 				</div>
 				<div class="modal-input">
-					<label for="Hora:" id="hour">Hora:</label> <input type="time"
-						id="hour" name="hora" />
+					<label for="hour-modal-add">Hora:</label> <input type="time"
+						id="hour-modal-add" name="hora" />
 				</div>
 				<button class="btnBlue">Solicitar Inclusão</button>
 			</form>

@@ -9,6 +9,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setTimeZone value="pt_BR" scope="session"/>
 
+<jsp:include page="../componentes/checarUsuario.jsp" />
+<jsp:include page="componentes/checarPermissao.jsp" />
+
+
 <%
 Date now = new Date();
 SimpleDateFormat simpleDateformat = new SimpleDateFormat("YYYY-MM");
