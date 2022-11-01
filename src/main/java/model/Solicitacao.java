@@ -7,6 +7,8 @@ public class Solicitacao {
 	private Date dataHora;
 	private String tipo;
 	private String status;
+	private int idTipo;
+	private int idStatus;
 	
 	public int getId() {
 		return id;
@@ -31,6 +33,18 @@ public class Solicitacao {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getIdTipo() {
+		return idTipo;
+	}
+	public void setIdTipo(int idTipo) {
+		this.idTipo = idTipo;
+	}
+	public int getIdStatus() {
+		return idStatus;
+	}
+	public void setIdStatus(int idStatus) {
+		this.idStatus = idStatus;
 	}
 	
 	

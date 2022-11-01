@@ -8,48 +8,49 @@
 <jsp:include page="componentes/checarPermissao.jsp" />
 
 <%
-
 Usuario usuario = (Usuario) session.getAttribute("usuario");
 
 Date now = new Date();
-SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE, d/MM/YYYY");
+SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEE dd/MM/YYYY");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<jsp:include page="/componentes/head.jsp" />
+<link href="/projeto-dotap/colaborador/meu-ponto.css" rel="stylesheet" />
 <title>Meu Ponto | DOTAP</title>
 </head>
 
 <body>
 	<jsp:include page="../componentes/navbar.jsp" />
-	<main>
+	<div class="content">
 		<jsp:include page="componentes/aside.jsp" />
 
-		<section>
+		<main>
+			<form action="/projeto-dotap/colaborador/bater-ponto" method="POST"
+				class="card">
+				<jsp:include page="../componentes/message.jsp" />
+				<p>
+					Olá <strong><%=usuario.getNome()%></strong>, registre seu ponto
+					agora!
+				</p>
 
-			<jsp:include page="../componentes/message.jsp" />
+				<div class="data">
+					<h1 id="hora"></h1>
+					<p><%=simpleDateformat.format(now)%></p>
+				</div>
 
-			<form action="/projeto-dotap/colaborador/bater-ponto" method="POST">
+				<div class="inputContent">
+					<label for="password">Digite a senha:</label> <input
+						type="password" name="senha" id="password">
+				</div>
 
-
-				Olá <strong><%=usuario.getNome()%></strong>, registre seu ponto
-				agora! <br>
-
-				<div id="hora"></div>
-
-				<%=simpleDateformat.format(now)%>
-
-				<br> <input type="password" name="senha"
-					placeholder="insira sua senha" /><br>
-
-				<button>Bater ponto</button>
+				<button class="btnRegister">Bater ponto</button>
 			</form>
-		</section>
-	</main>
+		</main>
 
-
+	</div>
 
 	<script type="text/javascript" src="meu-ponto.js"></script>
 </body>

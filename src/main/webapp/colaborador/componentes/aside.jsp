@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-<aside>	
+<nav>
 	<ul>
-		<li>
-		<a href="/projeto-dotap/colaborador/meu-ponto.jsp">Meu Ponto</a>
-		</li>
-		<li><a href="/projeto-dotap/colaborador/meus-registros">Meus
-				Registros</a></li>
-		<li><a href="/projeto-dotap/colaborador/minhas-solicitacoes">Minhas solicitações</a></li>
+		<li><a href="/projeto-dotap/colaborador/meu-ponto.jsp"> <img
+				src="/projeto-dotap/assets/hand-pointing.svg" class="icons-nav"
+				alt="" /> Meu Ponto
+		</a></li>
+		<li><a href="/projeto-dotap/colaborador/meus-registros"> <img
+				src="/projeto-dotap/assets/clock.svg" class="icons-nav" alt="" />
+				Meus Registros
+		</a></li>
+		<li><a href="/projeto-dotap/colaborador/minhas-solicitacoes">
+				<img src="/projeto-dotap/assets/clipboard-text.svg"
+				class="icons-nav" alt="" /> Minhas Solicitações
+		</a></li>
 	</ul>
-</aside>
-<br>
-<br>
+</nav>
+
