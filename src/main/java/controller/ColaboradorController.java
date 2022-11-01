@@ -15,13 +15,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.ColaboradorDAO;
+import model.Hora;
 import model.RegistroPorData;
 import model.Solicitacao;
 import model.Usuario;
 import model.UsuarioDAO;
 
 @WebServlet(urlPatterns = { "/colaborador/bater-ponto", "/colaborador/meus-registros",
-		"/colaborador/minhas-solicitacoes", "/colaborador/incluir-ponto", "/colaborador/excluir-ponto" })
+		"/colaborador/minhas-solicitacoes", "/colaborador/incluir-ponto", "/colaborador/pegar-pontos-por-data",
+		"/colaborador/excluir-ponto" })
 public class ColaboradorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +45,7 @@ public class ColaboradorController extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-		
+
 		String action = request.getServletPath();
 
 		switch (action) {
@@ -165,7 +167,7 @@ public class ColaboradorController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
-		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/incluir-ponto.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");
 
 		try {
 			String dataHora = data + " " + hora;
@@ -196,10 +198,12 @@ public class ColaboradorController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/excluir-ponto.jsp");
 
 		try {
+			
+			if (data != null && !data.isEmpty()) {
+				RegistroPorData registro = ColaboradorDAO.pegarPontosPorData(colaborador, data);
+				request.setAttribute("registro", registro);	
+			}
 
-			RegistroPorData registro = ColaboradorDAO.pegarPontosPorData(colaborador, data);
-
-			request.setAttribute("registro", registro);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			String message = "Ocorreu com a conexão ao banco de dados!";
@@ -214,29 +218,31 @@ public class ColaboradorController extends HttpServlet {
 
 	void excluirPonto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String data = request.getParameter("data");
-		String hora = request.getParameter("hora");
+		String rawHora = request.getParameter("hora");
 
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
 		RequestDispatcher rd = request.getRequestDispatcher("/colaborador/excluir-ponto.jsp");
-//
-//		try {
-//			String dataHora = data + " " + hora;
-//			
-//			ColaboradorDAO.incluirPonto(colaborador, dataHora);
-//			
-//			String message = "Solicitação feita com sucesso!";
-//			request.setAttribute("message", message);
-//			rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");	
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			String message = "Ocorreu com a conexão ao banco de dados!";			
-//			request.setAttribute("message", message);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			request.setAttribute("message", e.getMessage());		
-//		}
-//		
+
+		try {
+			
+			Hora hora = Hora.gerarHora(rawHora);			
+			String dataHora = data + " " + hora.getValor();			
+			
+			ColaboradorDAO.excluirPonto(colaborador, dataHora, hora.getId());
+			
+			String message = "Solicitação feita com sucesso!";
+			request.setAttribute("message", message);
+			rd = request.getRequestDispatcher("/colaborador/minhas-solicitacoes");	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String message = "Ocorreu com a conexão ao banco de dados!";			
+			request.setAttribute("message", message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", e.getMessage());		
+		}
+		
 		rd.forward(request, response);
 	}
 }

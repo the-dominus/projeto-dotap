@@ -1,13 +1,18 @@
+<%@page import="java.util.Date"%>
+<%@page import="model.RegistroPorData"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <jsp:include page="componentes/checarUsuario.jsp" />
 <jsp:include page="componentes/checarPermissao.jsp" />
 
 <%
-SimpleDateFormat simpleDateformat = new SimpleDateFormat("YYYY-MM-DD");
+String data = request.getParameter("data");
 
+RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 %>
 
 
@@ -32,27 +37,20 @@ SimpleDateFormat simpleDateformat = new SimpleDateFormat("YYYY-MM-DD");
 				<h3>Exclusão</h3>
 
 				<div>
-					<input id="data" type="date" name="data" placeholder="00/00/0000" />
+					<input id="data" type="date" name="data" placeholder="00/00/0000" required
+						value="<%=data%>" />
+
+
 				</div>
 				<div>
-					<fieldset>
-						<legend>Select a maintenance drone:</legend>
-
+					<c:forEach var="hora" items="${registro.horas}">
 						<div>
-							<input type="radio" id="huey" name="drone" value="huey" checked>
-							<label for="huey">Huey</label>
+							<label>
+							<input type="radio" required value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />"	name="hora" >
+							 <c:out	value="${hora.valor}" />
+							</label>
 						</div>
-
-						<div>
-							<input type="radio" id="dewey" name="drone" value="dewey">
-							<label for="dewey">Dewey</label>
-						</div>
-
-						<div>
-							<input type="radio" id="louie" name="drone" value="louie">
-							<label for="louie">Louie</label>
-						</div>
-					</fieldset>
+					</c:forEach>
 				</div>
 
 				<button>Solicitar exclusão</button>

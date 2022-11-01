@@ -1,15 +1,16 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import util.ConversaoDeTempo;
 
 public class RegistroPorData {
 	private Date data;
-	private String[] horas;
+	private ArrayList<Hora> horas;
 	private String totalDeHoras;
 
-	public RegistroPorData(Date data, String[] horas) {
+	public RegistroPorData(Date data, ArrayList<Hora> horas) {
 		super();
 		this.data = data;
 		this.horas = horas;
@@ -24,11 +25,11 @@ public class RegistroPorData {
 		this.data = data;
 	}
 
-	public String[] gethoras() {
+	public ArrayList<Hora> gethoras() {
 		return horas;
 	}
 
-	public void sethoras(String[] horas) {
+	public void sethoras(ArrayList<Hora> horas) {
 		this.horas = horas;
 	}
 
@@ -44,8 +45,8 @@ public class RegistroPorData {
 		int horaInicial = 0;
 		int auxTotalDeHorasEmMinutos = 0;
 
-		for (int i = 0; i < this.horas.length; i++) {
-			String hora = horas[i];
+		for (int i = 0; i < this.horas.size(); i++) {
+			String hora = horas.get(i).getValor();
 			int horaFinal = ConversaoDeTempo.converteStringDeHorasParaMinutos(hora);
 
 			boolean indexDaPrimeiraHora = i == 0;
@@ -61,7 +62,7 @@ public class RegistroPorData {
 	}
 
 	public boolean temHorasCorretas() {
-		return horas.length % 2 == 0;
+		return horas.size() % 2 == 0;
 	}
 
 }

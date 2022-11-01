@@ -5,9 +5,8 @@
 String message = (String) request.getAttribute("message");
 if (message != null) {
 %>
-<header><%=message%></header>
-<br>
-<br>
+<p><%=message%></p>
+
 <%
 session.removeAttribute("message");
 }

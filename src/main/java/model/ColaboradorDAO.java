@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.database.ConnectionManager;
 
@@ -35,12 +37,34 @@ public class ColaboradorDAO {
 		Connection connnection = ConnectionManager.getConnection();
 		ArrayList<RegistroPorData> registros = new ArrayList<RegistroPorData>();
 
-		String sql = "SELECT";
-		sql += " DATE_FORMAT(data_hora, '%Y-%m-%d') AS 'data',";
-		sql += " GROUP_CONCAT(DATE_FORMAT(data_hora, '%H:%i') ORDER BY data_hora SEPARATOR ';' ) AS 'horas'";
-		sql += " FROM registros";
-		sql += " WHERE data_hora LIKE ? AND id_usuario = ? AND status = 1";
-		sql += " GROUP BY data ORDER BY data";
+		String sql = "SELECT ";
+		sql += "    DATE_FORMAT(r.data_hora, '%Y-%m-%d') AS 'data',";
+		sql += "    GROUP_CONCAT(DATE_FORMAT(r.data_hora, '%H:%i')";
+		sql += "        ORDER BY r.data_hora";
+		sql += "        SEPARATOR ';') AS 'horas',";
+		sql += "    GROUP_CONCAT(r.id";
+		sql += "        ORDER BY r.data_hora";
+		sql += "        SEPARATOR ';') AS 'id_horas'";
+		sql += " FROM";
+		sql += "    registros r";
+		sql += "        LEFT JOIN";
+		sql += "    solicitacoes_registros_altera sra ON sra.id_registro = r.id";
+		sql += "        LEFT JOIN";
+		sql += "    solicitacoes s ON s.id = sra.id_solicitacao";
+		sql += " WHERE";
+		sql += "    	r.data_hora LIKE ?";
+		sql += "    	AND r.status = 1";
+		sql += "        AND r.id_usuario = ?";
+		sql += "        AND (";
+		sql += "        sra.id_registro IS NULL "; // Quando não tem solicitação
+		sql += "			OR (            "; 				// OU (se tem solicitação)
+		sql += "                (s.id_tipo = 1 AND s.id_status = 2)"; // Verifica se é inclusão e aprovada
+		sql += "                OR"; 									// OU
+		sql += "				(s.id_tipo = 2 AND s.id_status != 2)"; // Verifica se é exclusão e não aprovado
+		sql += "			)";
+		sql += "		)";
+		sql += " GROUP BY data";
+		sql += " ORDER BY data";
 
 		PreparedStatement ps = connnection.prepareStatement(sql);
 
@@ -50,9 +74,22 @@ public class ColaboradorDAO {
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
+			String rawIdHoras = rs.getString("id_horas");
 			String rawHoras = rs.getString("horas");
 
-			String[] horas = rawHoras.split(";");
+			String[] listaIdHoras = rawIdHoras.split(";");
+			String[] listaHoras = rawHoras.split(";");
+
+			ArrayList<Hora> horas = new ArrayList<Hora>();
+
+			for (int i = 0; i < listaIdHoras.length; i++) {
+				Hora hora = new Hora();
+
+				hora.setId(Integer.parseInt(listaIdHoras[i]));
+				hora.setValor(listaHoras[i]);
+
+				horas.add(hora);
+			}
 
 			RegistroPorData registro = new RegistroPorData(rs.getDate("data"), horas);
 
@@ -71,13 +108,14 @@ public class ColaboradorDAO {
 		Connection connnection = ConnectionManager.getConnection();
 		ArrayList<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
 
-		String sql = "SELECT s.id, data_hora, t.nome AS 'tipo', st.nome 'status'";
+		String sql = "SELECT s.id, data_hora, id_tipo, id_status, t.nome AS 'tipo', st.nome 'status'";
 		sql += " FROM solicitacoes s";
 		sql += " INNER JOIN tipo_solicitacoes t";
 		sql += " ON t.id = s.id_tipo";
 		sql += " INNER JOIN status_solicitacoes st";
 		sql += " ON st.id = s.id_status";
-		sql += " WHERE id_usuario = ?;";
+		sql += " WHERE id_usuario = ?";
+		sql += " ORDER BY status DESC, data_hora DESC";
 
 		PreparedStatement ps = connnection.prepareStatement(sql);
 
@@ -91,7 +129,10 @@ public class ColaboradorDAO {
 			solicitacao.setDataHora(rs.getTimestamp("data_hora"));
 			solicitacao.setTipo(rs.getString("tipo"));
 			solicitacao.setStatus(rs.getString("status"));
+			solicitacao.setIdTipo(rs.getInt("id_tipo"));
+			solicitacao.setIdStatus(rs.getInt("id_status"));
 			
+
 			solicitacoes.add(solicitacao);
 		}
 
@@ -100,7 +141,7 @@ public class ColaboradorDAO {
 
 		return solicitacoes;
 	}
-	
+
 	public static void incluirPonto(Usuario colaborador, String dataHora) throws SQLException, Exception {
 		Connection connnection = ConnectionManager.getConnection();
 
@@ -127,10 +168,20 @@ public class ColaboradorDAO {
 		RegistroPorData registro = null;
 
 		String sql = "SELECT";
-		sql += " DATE_FORMAT(data_hora, '%Y-%m-%d') AS 'data',";
-		sql += " GROUP_CONCAT(DATE_FORMAT(data_hora, '%H:%i') ORDER BY data_hora SEPARATOR ';' ) AS 'horas'";
-		sql += " FROM registros";
-		sql += " WHERE data_hora LIKE ? AND id_usuario = ? AND status = 1";
+		sql += " DATE_FORMAT(r.data_hora, '%Y-%m-%d') AS 'data',";
+		sql += " GROUP_CONCAT(DATE_FORMAT(r.data_hora, '%H:%i') ORDER BY r.data_hora SEPARATOR ';' ) AS 'horas',";
+		sql += " GROUP_CONCAT(r.id ORDER BY r.data_hora SEPARATOR ';') AS 'id_horas'";
+		sql += " FROM";
+		sql += "    registros r";
+		sql += "        LEFT JOIN";
+		sql += "    solicitacoes_registros_altera sra ON sra.id_registro = r.id";
+		sql += "        LEFT JOIN";
+		sql += "    solicitacoes s ON s.id = sra.id_solicitacao";
+		sql += " WHERE";
+		sql += "    	r.data_hora LIKE ?";
+		sql += "    	AND r.status = 1";
+		sql += "        AND r.id_usuario = ?";
+		sql += "        AND sra.id_registro IS NULL"; // Quando não tem solicitação
 		sql += " GROUP BY data LIMIT 1";
 
 		PreparedStatement ps = connnection.prepareStatement(sql);
@@ -141,17 +192,79 @@ public class ColaboradorDAO {
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
+			String rawIdHoras = rs.getString("id_horas");
 			String rawHoras = rs.getString("horas");
 
-			String[] horas = rawHoras.split(";");
+			String[] listaIdHoras = rawIdHoras.split(";");
+			String[] listaHoras = rawHoras.split(";");
 
-			registro = new RegistroPorData(rs.getDate("data"), horas);			
+			ArrayList<Hora> horas = new ArrayList<Hora>();
+
+			for (int i = 0; i < listaIdHoras.length; i++) {
+				Hora hora = new Hora();
+
+				hora.setId(Integer.parseInt(listaIdHoras[i]));
+				hora.setValor(listaHoras[i]);
+
+				horas.add(hora);
+			}
+
+			registro = new RegistroPorData(rs.getDate("data"), horas);
 		}
 
 		ps.close();
 		connnection.close();
 
 		return registro;
+	}
+
+	public static void excluirPonto(Usuario colaborador, String dataHora, int idRegistro)
+			throws SQLException, Exception {
+		Connection connnection = ConnectionManager.getConnection();
+
+		String sqlSolicitacao = "INSERT INTO solicitacoes (data_hora, id_usuario, id_tipo) VALUES(?, ?, 2)";
+		String sqlSolicitacaoRegistro = "INSERT INTO solicitacoes_registros_altera VALUES(?, ?)";
+
+		try (PreparedStatement psSolicitacao = connnection.prepareStatement(sqlSolicitacao,
+				Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement psSolicitacaoRegistro = connnection.prepareStatement(sqlSolicitacaoRegistro,
+						Statement.RETURN_GENERATED_KEYS))
+
+		{
+			connnection.setAutoCommit(false);
+
+			psSolicitacao.setString(1, dataHora);
+			psSolicitacao.setInt(2, colaborador.getId());
+
+			boolean solicitacaoIncluida = psSolicitacao.executeUpdate() == 1;
+
+			if (!solicitacaoIncluida)
+				throw new Exception("Não foi possível incluir a solicitação!");
+
+			ResultSet rs = psSolicitacao.getGeneratedKeys();
+
+			rs.next();
+
+			int idSolicitacaoCriada = rs.getInt(1);
+
+			psSolicitacaoRegistro.setInt(1, idSolicitacaoCriada);
+			psSolicitacaoRegistro.setInt(2, idRegistro);
+
+			boolean solicitacaoRegistro = psSolicitacaoRegistro.executeUpdate() == 1;
+
+			if (!solicitacaoRegistro)
+				throw new Exception("Não foi possível incluir a solicitação! Erro ao inlcuir o registro.");
+
+			connnection.commit();
+
+			psSolicitacao.close();
+			psSolicitacaoRegistro.close();
+			connnection.close();
+
+		} catch (Exception e) {
+			connnection.rollback();
+			throw e;
+		}
 	}
 
 }
