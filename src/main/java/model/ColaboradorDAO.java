@@ -132,7 +132,7 @@ public class ColaboradorDAO {
 			solicitacao.setIdTipo(rs.getInt("id_tipo"));
 			solicitacao.setIdStatus(rs.getInt("id_status"));
 			
-
+			
 			solicitacoes.add(solicitacao);
 		}
 
