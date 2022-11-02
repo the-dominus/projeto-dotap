@@ -9,7 +9,7 @@
 	
 
   <header>
-    <a href="<%=  usuario.eAdministrador() ? "/projeto-dotap/administrador/solicitacoes.jsp" : "/projeto-dotap/colaborador/meu-ponto.jsp" %>"><img class="logo-dotap" src="/projeto-dotap/assets/logo-dotap.svg" alt="Logo dotap" title="Logo dotap"></a>
+    <a href="<%=  usuario.eAdministrador() ? "/projeto-dotap/administrador/solicitacoes" : "/projeto-dotap/colaborador/meu-ponto.jsp" %>"><img class="logo-dotap" src="/projeto-dotap/assets/logo-dotap.svg" alt="Logo dotap" title="Logo dotap"></a>
 	
     <a href="/projeto-dotap/usuario/sair" class="btnLogout">    
      	<img src="/projeto-dotap/assets/sign-out.svg" alt="logo-sair" title="Sair"></img>

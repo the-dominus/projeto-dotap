@@ -294,7 +294,7 @@ td > a {
 	display: inline;
 }
 
-td > a >img {
+td > a > img {
   display: inline;
   width: 30px;
 }
