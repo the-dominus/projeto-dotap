@@ -51,7 +51,12 @@ public class UsuarioController extends HttpServlet {
 
 			HttpSession session = request.getSession();		
 			session.setAttribute("usuario", usuario);
-			response.sendRedirect("/projeto-dotap/colaborador/meu-ponto.jsp");
+			
+			if(usuario.eAdministrador())
+				response.sendRedirect("/projeto-dotap/administrador/usuarios-cadastrados");
+			else 
+				response.sendRedirect("/projeto-dotap/colaborador/meu-ponto.jsp");
+			
 			return;
 		} catch (SQLException e) {
 			e.printStackTrace();

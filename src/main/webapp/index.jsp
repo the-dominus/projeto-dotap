@@ -18,11 +18,11 @@
         <h2>Faça login e comece a usar!</h2>
         <div>
           <label for="email">Digite seu e-mail:</label>
-          <input class="inputCustom" type="email" id="email" name="email"/>
+          <input class="inputCustom" type="email" id="email" name="email" required/>
         </div>
         <div>
           <label for="Digite sua senha:" id="password">Digite sua senha:</label>
-          <input class="inputCustom" type="password" name="senha" id="password" />
+          <input class="inputCustom" type="password" name="senha" id="password" required />
         </div>
 
         <button>Acessar</button>

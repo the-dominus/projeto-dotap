@@ -13,11 +13,11 @@ import model.database.ConnectionManager;
 public class ColaboradorDAO {
 
 	public static void baterPonto(Usuario colaborador, String dataHora) throws SQLException, Exception {
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 
 		String sql = "INSERT INTO registros (data_hora, id_usuario) VALUES(?, ?)";
 
-		PreparedStatement ps = connnection.prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 
 		ps.setString(1, dataHora);
 		ps.setInt(2, colaborador.getId());
@@ -25,7 +25,7 @@ public class ColaboradorDAO {
 		boolean pontoBatido = ps.executeUpdate() == 1;
 
 		ps.close();
-		connnection.close();
+		connection.close();
 
 		if (!pontoBatido)
 			throw new Exception("Senha inválida!");
@@ -34,7 +34,7 @@ public class ColaboradorDAO {
 	public static ArrayList<RegistroPorData> pegarRegistros(Usuario colaborador, String data)
 			throws SQLException, ClassNotFoundException {
 
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 		ArrayList<RegistroPorData> registros = new ArrayList<RegistroPorData>();
 
 		String sql = "SELECT ";
@@ -66,7 +66,7 @@ public class ColaboradorDAO {
 		sql += " GROUP BY data";
 		sql += " ORDER BY data";
 
-		PreparedStatement ps = connnection.prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 
 		ps.setString(1, data + "%");
 		ps.setInt(2, colaborador.getId());
@@ -97,7 +97,7 @@ public class ColaboradorDAO {
 		}
 
 		ps.close();
-		connnection.close();
+		connection.close();
 
 		return registros;
 	}
@@ -105,7 +105,7 @@ public class ColaboradorDAO {
 	public static ArrayList<Solicitacao> pegarSolicitacoes(Usuario colaborador)
 			throws SQLException, ClassNotFoundException {
 
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 		ArrayList<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
 
 		String sql = "SELECT s.id, data_hora, id_tipo, id_status, t.nome AS 'tipo', st.nome 'status'";
@@ -117,7 +117,7 @@ public class ColaboradorDAO {
 		sql += " WHERE id_usuario = ?";
 		sql += " ORDER BY status DESC, data_hora DESC";
 
-		PreparedStatement ps = connnection.prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 
 		ps.setInt(1, colaborador.getId());
 
@@ -137,17 +137,17 @@ public class ColaboradorDAO {
 		}
 
 		ps.close();
-		connnection.close();
+		connection.close();
 
 		return solicitacoes;
 	}
 
 	public static void incluirPonto(Usuario colaborador, String dataHora) throws SQLException, Exception {
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 
 		String sql = "INSERT INTO solicitacoes (data_hora, id_usuario, id_tipo) VALUES(?, ?, 1)";
 
-		PreparedStatement ps = connnection.prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 
 		ps.setString(1, dataHora);
 		ps.setInt(2, colaborador.getId());
@@ -155,7 +155,7 @@ public class ColaboradorDAO {
 		boolean pontoIncluido = ps.executeUpdate() == 1;
 
 		ps.close();
-		connnection.close();
+		connection.close();
 
 		if (!pontoIncluido)
 			throw new Exception("Não foi possível incluir a solicitação!");
@@ -164,7 +164,7 @@ public class ColaboradorDAO {
 	public static RegistroPorData pegarPontosPorData(Usuario colaborador, String data)
 			throws SQLException, ClassNotFoundException {
 
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 		RegistroPorData registro = null;
 
 		String sql = "SELECT";
@@ -184,7 +184,7 @@ public class ColaboradorDAO {
 		sql += "        AND sra.id_registro IS NULL"; // Quando não tem solicitação
 		sql += " GROUP BY data LIMIT 1";
 
-		PreparedStatement ps = connnection.prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 
 		ps.setString(1, data + "%");
 		ps.setInt(2, colaborador.getId());
@@ -213,25 +213,25 @@ public class ColaboradorDAO {
 		}
 
 		ps.close();
-		connnection.close();
+		connection.close();
 
 		return registro;
 	}
 
 	public static void excluirPonto(Usuario colaborador, String dataHora, int idRegistro)
 			throws SQLException, Exception {
-		Connection connnection = ConnectionManager.getConnection();
+		Connection connection = ConnectionManager.getConnection();
 
 		String sqlSolicitacao = "INSERT INTO solicitacoes (data_hora, id_usuario, id_tipo) VALUES(?, ?, 2)";
 		String sqlSolicitacaoRegistro = "INSERT INTO solicitacoes_registros_altera VALUES(?, ?)";
 
-		try (PreparedStatement psSolicitacao = connnection.prepareStatement(sqlSolicitacao,
+		try (PreparedStatement psSolicitacao = connection.prepareStatement(sqlSolicitacao,
 				Statement.RETURN_GENERATED_KEYS);
-				PreparedStatement psSolicitacaoRegistro = connnection.prepareStatement(sqlSolicitacaoRegistro,
+				PreparedStatement psSolicitacaoRegistro = connection.prepareStatement(sqlSolicitacaoRegistro,
 						Statement.RETURN_GENERATED_KEYS))
 
 		{
-			connnection.setAutoCommit(false);
+			connection.setAutoCommit(false);
 
 			psSolicitacao.setString(1, dataHora);
 			psSolicitacao.setInt(2, colaborador.getId());
@@ -255,14 +255,14 @@ public class ColaboradorDAO {
 			if (!solicitacaoRegistro)
 				throw new Exception("Não foi possível incluir a solicitação! Erro ao inlcuir o registro.");
 
-			connnection.commit();
+			connection.commit();
 
 			psSolicitacao.close();
 			psSolicitacaoRegistro.close();
-			connnection.close();
+			connection.close();
 
 		} catch (Exception e) {
-			connnection.rollback();
+			connection.rollback();
 			throw e;
 		}
 	}

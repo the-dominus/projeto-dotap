@@ -4,7 +4,7 @@
 
 <nav>
 	<ul>
-		<li><a href="/projeto-dotap/administrador/usuarios-cadastrados.jsp"> <img
+		<li><a href="/projeto-dotap/administrador/usuarios-cadastrados"> <img
 				src="/projeto-dotap/assets/address-book.svg" class="icons-nav" alt="" />
 				Usuários Cadastrados
 		</a></li>

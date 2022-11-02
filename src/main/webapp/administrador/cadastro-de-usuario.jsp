@@ -14,27 +14,30 @@
 		<jsp:include page="componentes/aside.jsp" />
 
 		<main>
+
+			<jsp:include page="/componentes/message.jsp" />
 			<h1>Cadastro de Usuário</h1>
-			<form class="card">
+			<form class="card" action="/projeto-dotap/administrador/cadastrar-usuario" method="POST">
 				<div>
 					<div class="inputContent">
-						<label>Nome:</label> <input type="text">
+						<label>Nome:</label> <input type="text" name="nome" required>
 					</div>
 					<div class="inputContent">
-						<label>Sobrenome:</label> <input type="text">
+						<label>Sobrenome:</label> <input type="text" name="sobrenome"
+							required>
 					</div>
 					<div class="inputCheckbox">
-						<input type="checkbox" id="administrador"> <label
+						<input type="checkbox" id="administrador" name="administrador"> <label
 							for="administrador">Administrador</label>
 					</div>
 				</div>
 
 				<div>
 					<div class="inputContent">
-						<label>E-mail:</label> <input type="email">
+						<label>E-mail:</label> <input type="email" name="email" required>
 					</div>
 					<div class="inputContent">
-						<label>Senha:</label> <input type="password">
+						<label>Senha:</label> <input type="password" name="senha" required>
 					</div>
 					<button class="btnRegister">Cadastrar</button>
 				</div>

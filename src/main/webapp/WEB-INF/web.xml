@@ -29,4 +29,14 @@
     <servlet-name>ColaboradorController</servlet-name>
     <url-pattern>/colaborador</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdministradorController</display-name>
+    <servlet-name>AdministradorController</servlet-name>
+    <servlet-class>controller.AdministradorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdministradorController</servlet-name>
+    <url-pattern>/administrador</url-pattern>
+  </servlet-mapping>
 </web-app>
