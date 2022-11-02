@@ -11,6 +11,7 @@ import model.AdministradorDAO;
 import model.ColaboradorDAO;
 import model.RegistroPorData;
 import model.Usuario;
+import util.Message;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,14 +28,17 @@ public class AdministradorController extends HttpServlet {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 
+		Message message = new Message("Usuário não autenticado.", Message.Tipo.error);
+		
 		if (session.getAttribute("usuario") == null) {
-			request.setAttribute("message", "Usuário não autenticado.");
+			request.setAttribute("message", message);
 			rd.forward(request, response);
 			return;
 		}
 
 		if (!usuario.eAdministrador()) {
-			request.setAttribute("message", "Usuário sem permissão para essa rota.");
+			message.setValor("Usuário sem permissão para essa rota.");
+			request.setAttribute("message", message);
 			rd.forward(request, response);
 			return;
 		}
@@ -72,18 +76,19 @@ public class AdministradorController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Usuario colaborador = (Usuario) session.getAttribute("usuario");
 		RequestDispatcher rd = request.getRequestDispatcher("/administrador/usuarios-cadastrados.jsp");
-
+		Message message = new Message("Ocorreu com a conexão ao banco de dados!", Message.Tipo.error);
+		
 		try {
 			ArrayList<Usuario> usuarios = AdministradorDAO.pegarUsuariosCadastrados(colaborador);
 
 			request.setAttribute("usuarios", usuarios);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			String message = "Ocorreu com a conexão ao banco de dados!";
 			request.setAttribute("message", message);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", e.getMessage());
+			message.setValor(e.getMessage());
+			request.setAttribute("message", message);
 		}
 
 		rd.forward(request, response);
@@ -92,21 +97,20 @@ public class AdministradorController extends HttpServlet {
 	protected void removerUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idUsuario = request.getParameter("id");
 		RequestDispatcher rd = request.getRequestDispatcher("/administrador/usuarios-cadastrados");
+		Message message = new Message("Usuário removido com sucesso!", Message.Tipo.success);
 
 		try {
 			AdministradorDAO.removerUsuarioPorId(Integer.parseInt(idUsuario));
 			
-			String message = "Usuário removido com sucesso!";
-			request.setAttribute("message", message);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			String message = "Ocorreu com a conexão ao banco de dados!";
-			request.setAttribute("message", message);
+			message.setValorETipo("Ocorreu com a conexão ao banco de dados!", Message.Tipo.error);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", e.getMessage());
+			message.setValorETipo(e.getMessage(), Message.Tipo.error);
 		}
 
+		request.setAttribute("message", message);
 		rd.forward(request, response);
 	}
 	
@@ -118,21 +122,21 @@ public class AdministradorController extends HttpServlet {
 		String eAdministrador = request.getParameter("administrador");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/administrador/cadastro-de-usuario.jsp");
+		Message message = new Message("Usuário adicionado com sucesso!", Message.Tipo.success);
+
 		
 		try {
 			AdministradorDAO.cadastrarUsuario(nome, sobrenome, email, senha, eAdministrador != null ? 2: 1);
 			
-			String message = "Usuário adicionado com sucesso!";
-			request.setAttribute("message", message);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			String message = "Ocorreu com a conexão ao banco de dados!";
-			request.setAttribute("message", message);
+			message.setValorETipo("Ocorreu com a conexão ao banco de dados!", Message.Tipo.error);
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", e.getMessage());
+			message.setValorETipo(e.getMessage(), Message.Tipo.error);
 		}
-		
+
+		request.setAttribute("message", message);
 		rd.forward(request, response);
 	}
 }

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Usuario;
 import model.UsuarioDAO;
+import util.Message;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -43,10 +44,11 @@ public class UsuarioController extends HttpServlet {
 
 	void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");		
+		String senha = request.getParameter("senha");
+		
+		Message message = new Message("Ocorreu com a conexão ao banco de dados!", Message.Tipo.error);
 
-		try {		
-			
+		try {
 			Usuario usuario = UsuarioDAO.login(email, senha);
 
 			HttpSession session = request.getSession();		
@@ -59,13 +61,12 @@ public class UsuarioController extends HttpServlet {
 			
 			return;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
-			String message = "Ocorreu com a conexão ao banco de dados!";			
+			e.printStackTrace();		
 			request.setAttribute("message", message);
 		} catch (Exception e) {
-			e.printStackTrace();			
-			request.setAttribute("message", e.getMessage());		
+			e.printStackTrace();	
+			message.setValor(e.getMessage());
+			request.setAttribute("message", message);		
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
