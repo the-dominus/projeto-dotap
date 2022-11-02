@@ -12,11 +12,11 @@
 				src="/projeto-dotap/assets/user-circle-plus.svg" class="icons-nav" alt="" />
 				Cadastro de Usuários
 		</a></li>
-		<li><a href="/projeto-dotap/administrador/solicitacoes.jsp"> <img
+		<li><a href="/projeto-dotap/administrador/solicitacoes"> <img
 				src="/projeto-dotap/assets/clipboard-text.svg" class="icons-nav" alt="" />
 				Solicitações
 		</a></li>
-		<li><a href="/projeto-dotap/administrador/pontos-registrados.jsp"> <img
+		<li><a href="/projeto-dotap/administrador/pontos-registrados"> <img
 				src="/projeto-dotap/assets/clock.svg" class="icons-nav" alt="" />
 				Pontos Registrados
 		</a></li>

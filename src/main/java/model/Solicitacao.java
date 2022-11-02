@@ -9,6 +9,7 @@ public class Solicitacao {
 	private String status;
 	private int idTipo;
 	private int idStatus;
+	private int idUsuario;
 	
 	public int getId() {
 		return id;
@@ -45,6 +46,12 @@ public class Solicitacao {
 	}
 	public void setIdStatus(int idStatus) {
 		this.idStatus = idStatus;
+	}
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+
+<jsp:include page="../componentes/checarUsuario.jsp" />
+<jsp:include page="componentes/checarPermissao.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>

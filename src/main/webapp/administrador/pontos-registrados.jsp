@@ -1,5 +1,21 @@
+<%@page import="model.RegistroPorData"%>
+<%@page import="model.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setTimeZone value="pt_BR" scope="session"/>
+	
+<jsp:include page="../componentes/checarUsuario.jsp" />
+<jsp:include page="componentes/checarPermissao.jsp" />
+
+<%
+
+ArrayList<Usuario> colaboradores = (ArrayList<Usuario>) request.getAttribute("colaboradores");
+ArrayList<RegistroPorData> registros = (ArrayList<RegistroPorData>) request.getAttribute("registros");
+%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +30,23 @@
 		<jsp:include page="componentes/aside.jsp" />
 
 		<main>
+			
+			<jsp:include page="/componentes/message.jsp" />
+		
 			<div class="tableHeader">
 				<h1>Pontos Registrados</h1>
-				<form action="">
-					<input type="month" /> <select>
+				<form action="/projeto-dotap/administrador/registros-por-colaborador" >
+					<input type="month" name="data" value="<%=request.getParameter("data") %>" />
+					 <select id="selectColaborador" name="colaborador" >
 						<option disabled selected>Colaborador</option>
-						<option>John Doe</option>
-						<option>John Doe</option>
-						<option>John Doe</option>
+						<c:forEach var="colaborador" items="${colaboradores}">
+							<option value="<c:out value="${colaborador.id}" />">
+								<c:out value="${colaborador.id}" /> - <c:out value="${colaborador.nome}" /> <c:out value="${colaborador.sobrenome}" />
+							</option>						
+						</c:forEach>
 					</select>
 					<button>
-						<img src="/projeto-dotap/assets/magnifying-glass.svg" alt="lupa">
+						<img src="/projeto-dotap/assets/magnifying-glass.svg" alt="Buscar pontos por colaborador" title="Buscar pontos por colaborador">
 					</button>
 				</form>
 			</div>
@@ -37,101 +59,26 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="registro" items="${registros}">
 					<tr>
-						<td>Seg, 03/10/22</td>
+						<td><fmt:formatDate value="${registro.data}" pattern="dd/MM/YYYY"/></td>
 						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
+							<c:forEach var="hora" items="${registro.horas}">
+								<p class="point">
+									<c:out value="${hora.valor}" />
+								</p>
+							</c:forEach>
 						</td>
-						<td>8:00</td>
+						<td><c:out value="${registro.totalDeHoras}" /></td>
 					</tr>
-
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
-					<tr>
-						<td>Seg, 03/10/22</td>
-						<td class="registers">
-							<p class="point">08:00</p>
-							<p class="point">12:00</p>
-							<p class="point">13:00</p>
-							<p class="point">17:00</p>
-						</td>
-						<td>8:00</td>
-					</tr>
+				</c:forEach>
+					
 				</tbody>
 			</table>
 		</main>
 
-		<div>
+	</div>
+	
+	<script type="text/javascript" src="pontos-registrados.js"></script>
 </body>
 </html>

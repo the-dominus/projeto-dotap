@@ -115,7 +115,7 @@ public class ColaboradorDAO {
 		sql += " INNER JOIN status_solicitacoes st";
 		sql += " ON st.id = s.id_status";
 		sql += " WHERE id_usuario = ?";
-		sql += " ORDER BY status DESC, data_hora DESC";
+		sql += " ORDER BY id_status, data_hora DESC";
 
 		PreparedStatement ps = connection.prepareStatement(sql);
 
