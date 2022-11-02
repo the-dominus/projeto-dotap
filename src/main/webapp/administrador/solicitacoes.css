@@ -87,9 +87,23 @@
 .modal-input > label{
   color: var(--blue-800);
   font-weight: 700;
+
 }
 
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 
 body {
@@ -200,13 +214,13 @@ main {
   gap: 6px;
 }
 
-.tableHeader {
+main> div {
   width:100%;
   display: flex;
   justify-content: space-between;
 }
 
-.tableHeader > h1 {
+main > div > h1 {
   font-weight: 500;
   color: var(--blue-800);
 }
@@ -214,7 +228,7 @@ main {
 .register-options {
   display: flex;
   flex-direction: row;
-  
+  gap: 1rem
 }
 
 #btnAddRegister, #btnRemoveRegister {
@@ -277,8 +291,7 @@ tr:nth-child(odd) {
 }
 
 td > img {
-	display: inline;
-  	width: 30px;
+  width: 30px;
 }
 
 td > div {
@@ -297,7 +310,7 @@ input {
   box-sizing: border-box;
 }
 
-.btnBlue {
+button {
   width: 250px;
   height: 40px;
   background: var(--blue-900);
@@ -309,7 +322,7 @@ input {
   font-weight: 600;
   font-size: 18px;
 }
-.btnBlue:hover {
+button:hover {
   /* background: var(--blue-800); */
   transition: 0.3s;
   opacity: 0.9;

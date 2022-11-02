@@ -6,7 +6,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setTimeZone value="pt_BR" scope="session"/>
+<fmt:setTimeZone value="pt_BR" scope="session" />
 
 
 <jsp:include page="../componentes/checarUsuario.jsp" />
@@ -37,28 +37,31 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 		<!-- Modal content -->
 		<div class="modal-container">
 			<h1>Exclusão</h1>
-			<form id="formModalRemove" action="/projeto-dotap/colaborador/excluir-ponto"
-				method="POST" class="modal-content">
+			<form id="formModalRemove"
+				action="/projeto-dotap/colaborador/excluir-ponto" method="POST"
+				class="modal-content">
 				<div class="modal-input">
-					<label for="data-modal-remove" >Data:</label> <input id="data-modal-remove" type="date" name="data" placeholder="00/00/0000" required
-						value="<%=data%>"/>
+					<label for="data-modal-remove">Data:</label> <input
+						id="data-modal-remove" type="date" name="data"
+						placeholder="00/00/0000" required value="<%=data%>" />
 				</div>
 				<div class="modal-input">
-<!-- 					<label for="Hora:" id="hour">Hora:</label> <select> -->
-<!-- 						<option>13:00</option> -->
-<!-- 						<option>13:00</option> -->
-<!-- 						<option>13:00</option> -->
-<!-- 					</select> -->
+					<!-- 					<label for="Hora:" id="hour">Hora:</label> <select> -->
+					<!-- 						<option>13:00</option> -->
+					<!-- 						<option>13:00</option> -->
+					<!-- 						<option>13:00</option> -->
+					<!-- 					</select> -->
 					<c:forEach var="hora" items="${registro.horas}">
 						<div>
-							<label>
-							<input type="radio" required value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />" id="hora-modal-remove" name="hora" >
-							 <c:out	value="${hora.valor}" />
+							<label> <input type="radio" required
+								value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />"
+								id="hora-modal-remove" name="hora"> <c:out
+									value="${hora.valor}" />
 							</label>
 						</div>
 					</c:forEach>
 				</div>
-				
+
 				<button class="btnBlue">Solicitar Exclusão</button>
 			</form>
 		</div>
@@ -71,7 +74,7 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				class="modal-content">
 				<jsp:include page="../componentes/message.jsp" />
 				<div class="modal-input">
-					<label for="data-modal-add" >Data:</label> <input type="date"
+					<label for="data-modal-add">Data:</label> <input type="date"
 						name="data" id="data-modal-add" />
 				</div>
 				<div class="modal-input">
@@ -119,11 +122,9 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				<tbody>
 					<c:forEach var="solicitacao" items="${solicitacoes}">
 						<tr>
-							<td><p>
-									<img
-										src="/projeto-dotap/assets/tipo-<c:out value="${solicitacao.idTipo}"/>.svg"
-										alt="<c:out value="${solicitacao.tipo}"/>" />
-								</p></td>
+							<td><img
+								src="/projeto-dotap/assets/tipo-<c:out value="${solicitacao.idTipo}"/>.svg"
+								alt="<c:out value="${solicitacao.tipo}"/>" /></td>
 							<td><p>
 									<fmt:formatDate value="${solicitacao.dataHora}"
 										pattern="EEE, dd/MM/YYYY - HH:mm" />
