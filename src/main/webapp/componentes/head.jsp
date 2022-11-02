@@ -14,6 +14,7 @@
     />
 
 
-    <link href="/projeto-dotap/reset.css" rel="stylesheet" />
+    <link href="/projeto-dotap/reset.css" rel="stylesheet" />    	
+	  <link href="/projeto-dotap/componentes/message.css"	rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="/projeto-dotap/assets/logo-orange.ico" />
     

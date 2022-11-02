@@ -41,21 +41,16 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				action="/projeto-dotap/colaborador/excluir-ponto" method="POST"
 				class="modal-content">
 				<div class="modal-input">
-					<label for="data-modal-remove">Data:</label> <input
+					<label for="data-modal-remove">Data:</label> <input class="inputCustom"
 						id="data-modal-remove" type="date" name="data"
 						placeholder="00/00/0000" required value="<%=data%>" />
 				</div>
-				<div class="modal-input">
-					<!-- 					<label for="Hora:" id="hour">Hora:</label> <select> -->
-					<!-- 						<option>13:00</option> -->
-					<!-- 						<option>13:00</option> -->
-					<!-- 						<option>13:00</option> -->
-					<!-- 					</select> -->
+				<div class="content-radio">
 					<c:forEach var="hora" items="${registro.horas}">
-						<div>
+						<div class="modal-radio">
 							<label> <input type="radio" required
 								value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />"
-								id="hora-modal-remove" name="hora"> <c:out
+								id="hora-modal-remove" name="hora">  <c:out
 									value="${hora.valor}" />
 							</label>
 						</div>
@@ -74,11 +69,11 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				class="modal-content">
 				<jsp:include page="../componentes/message.jsp" />
 				<div class="modal-input">
-					<label for="data-modal-add">Data:</label> <input type="date"
+					<label for="data-modal-add">Data:</label> <input class="inputCustom" type="date"
 						name="data" id="data-modal-add" />
 				</div>
 				<div class="modal-input">
-					<label for="hour-modal-add">Hora:</label> <input type="time"
+					<label for="hour-modal-add">Hora:</label> <input class="inputCustom" type="time"
 						id="hour-modal-add" name="hora" />
 				</div>
 				<button class="btnBlue">Solicitar Inclusão</button>
@@ -122,16 +117,12 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				<tbody>
 					<c:forEach var="solicitacao" items="${solicitacoes}">
 						<tr>
-							<td><img
-								src="/projeto-dotap/assets/tipo-<c:out value="${solicitacao.idTipo}"/>.svg"
-								alt="<c:out value="${solicitacao.tipo}"/>" /></td>
-							<td><p>
+							<td><p><c:out value="${solicitacao.tipo}"/></p></td>
+							<td><p class="capitalize">
 									<fmt:formatDate value="${solicitacao.dataHora}"
-										pattern="EEE, dd/MM/YYYY - HH:mm" />
+										pattern="EEE dd/MM/YYYY - HH:mm" />
 								</p></td>
-							<td><img
-								src="/projeto-dotap/assets/tipo-<c:out value="${solicitacao.status}"/>.svg"
-								alt="<c:out value="${solicitacao.status}"/>" /></td>
+							<td><p><c:out value="${solicitacao.status}"/></p></td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -84,9 +84,27 @@
 
 }
 
+.modal-radio{
+	display: flex;
+    width: 84px;
+    justify-content: center;
+}
+
 .modal-input > label{
   color: var(--blue-800);
   font-weight: 700;
+}
+
+.content-radio{
+
+	width: 250px;
+    display: flex;
+    justify-content: space-evenly;
+    
+    gap: 10px;
+    flex-wrap: wrap;
+    
+    margin: 10px 0;
 }
 
 
@@ -286,8 +304,11 @@ td > div {
   align-items: center;
   justify-content: center;
 }
+.capitalize {	
+	text-transform: capitalize;
+} 
 
-input {
+.inputCustom {
   width: 250px;
   height: 40px;
   border: 2px solid var(--blue-800) ;

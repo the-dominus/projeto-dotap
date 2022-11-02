@@ -5,5 +5,8 @@
 String message = (String) request.getAttribute("message");
 if (message != null) {
 %>
-<p><%=message%></p>
+<div class="error">
+	<p><%=message%></p>
+</div>
+
 <%}%>

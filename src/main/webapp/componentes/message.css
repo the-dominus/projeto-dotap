@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.error {
+	background-color: #B73E3E;
+	padding: 0.5rem 0.7rem;
+	border-radius: 5px;
+}
+
+.error > p {	
+	color: #fff;
+}
+
+.success {
+	background-color: #367E18;
+	color: #fff;
+	padding: 0.5rem 0.7rem;
+	border-radius: 5px;
+}
+
+.success > p {	
+	color: #fff;
+}
