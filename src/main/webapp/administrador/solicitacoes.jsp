@@ -35,160 +35,16 @@
                 <p>Doe</p>
               </td>
               <td>
-                <img src="../assets/plus-circle.svg" alt="">
+                <p>Inclusão</p>
                </td>
                <td>
                 <p>Seg, 03/10/2022 - 08:00</p>
               </td>
               <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
+                <a href=""><img src="../assets/check-circle.svg" alt="Aceitar" title="Aceitar" /></a>
+                <a href=""><img src="../assets/x-circle.svg" alt="Recusar" title="Recusar" /></a>
               </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
-            <tr>
-              <td><p>John</p></td>
-              <td>
-                <p>Doe</p>
-              </td>
-              <td>
-                <img src="../assets/plus-circle.svg" alt="">
-               </td>
-               <td>
-                <p>Seg, 03/10/2022 - 08:00</p>
-              </td>
-              <td>
-                <img src="../assets/check-circle.svg" alt="" />
-                <img src="../assets/x-circle.svg" alt="" />
-              </td>
-            </tr>
+            
 
             
           </tbody>

@@ -64,6 +64,7 @@ ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuario
 						</tr>
 					</c:forEach>
 
+
 				</tbody>
 			</table>
 		</main>

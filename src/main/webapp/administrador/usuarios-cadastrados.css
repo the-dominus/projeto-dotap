@@ -290,9 +290,15 @@ tr:nth-child(odd) {
   background: white;
 }
 
-td > img {
+td > a {
+	display: inline;
+}
+
+td > a >img {
+  display: inline;
   width: 30px;
 }
+
 
 td > div {
   display: flex;
