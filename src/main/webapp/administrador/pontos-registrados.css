@@ -168,9 +168,12 @@ th {
 
 tr > td {
   height: 55px;
-  background: var(--gray-100);
   text-align: center;
   color: var(--gray-600);
+}
+
+tr:nth-child(odd) {
+  background: white;
 }
 
 form{
