@@ -1,4 +1,6 @@
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.RegistroPorData"%>
 <%@page import="model.Solicitacao"%>
 <%@page import="java.util.ArrayList"%>
@@ -19,6 +21,9 @@ ArrayList<Solicitacao> solicitacoes = (ArrayList<Solicitacao>) request.getAttrib
 String data = request.getParameter("data");
 
 RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
+
+Date now = new Date();
+SimpleDateFormat simpleDateformat = new SimpleDateFormat("YYYY-MM-dd");
 %>
 
 <!DOCTYPE html>
@@ -50,7 +55,7 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 						<div class="modal-radio">
 							<label> <input type="radio" required
 								value="<c:out	value="${hora.id}" />;<c:out	value="${hora.valor}" />"
-								id="hora-modal-remove" name="hora">  <c:out
+								id="hora-modal-remove" name="hora" >  <c:out
 									value="${hora.valor}" />
 							</label>
 						</div>
@@ -70,7 +75,7 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 				<jsp:include page="../componentes/message.jsp" />
 				<div class="modal-input">
 					<label for="data-modal-add">Data:</label> <input class="inputCustom" type="date"
-						name="data" id="data-modal-add" />
+						name="data" id="data-modal-add" max="<%= simpleDateformat.format(now) %>" required />
 				</div>
 				<div class="modal-input">
 					<label for="hour-modal-add">Hora:</label> <input class="inputCustom" type="time"
@@ -86,7 +91,7 @@ RegistroPorData registro = (RegistroPorData) request.getAttribute("registro");
 		<jsp:include page="componentes/aside.jsp" />
 
 		<main>
-
+		
 			<jsp:include page="../componentes/message.jsp" />
 
 			<div class="tableHeader">

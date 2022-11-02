@@ -61,10 +61,10 @@ ArrayList<SolicitacaoComUsuario> solicitacoes = (ArrayList<SolicitacaoComUsuario
 	              </td>
 	              <td>
 	                <a href="/projeto-dotap/administrador/solicitacao/aprovar?id=<c:out value="${solicitacao.id}" />&idTipo=<c:out value="${solicitacao.idTipo}" />">
-	                	<img src="/projeto-dotap/assets/check-circle.svg" alt="" />
+	                	<img src="/projeto-dotap/assets/check-circle.svg" alt="Aceitar Solicitação" title="Aceitar Solicitação" />
                 	</a>
 	                <a href="/projeto-dotap/administrador/solicitacao/reprovar?id=<c:out value="${solicitacao.id}" />">
-	                	<img src="/projeto-dotap/assets/x-circle.svg" alt="" />
+	                	<img src="/projeto-dotap/assets/x-circle.svg" alt="Recusar Solicitação" title="Recusar Solicitação" />
                 	</a>
 	              </td>
 	            </tr>         

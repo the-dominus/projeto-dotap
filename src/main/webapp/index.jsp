@@ -11,7 +11,7 @@
 <body>
 	<main>
       <div class="logo">
-        <img src="/projeto-dotap/assets/logo-dotap.svg" alt="logo dotap" />
+        <img src="/projeto-dotap/assets/logo-dotap.svg" alt="logo dotap" title="Logo dotap" />
       </div>
       <form action="/projeto-dotap/usuario/login" method="POST" class="form">
 		<jsp:include page="componentes/message.jsp" />
