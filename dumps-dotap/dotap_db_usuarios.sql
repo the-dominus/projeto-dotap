@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `dotap_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `dotap_db`;
--- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: dotap_db
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `FK_usuarios_2` (`id_perfil`),
   CONSTRAINT `FK_usuarios_2` FOREIGN KEY (`id_perfil`) REFERENCES `perfis` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Cleyson','Silva','cleyson.silva@email.com','123456',1,1);
+INSERT INTO `usuarios` VALUES (1,'Cleyson','Silva','cleyson.silva@email.com','123456',0,1),(2,'Lucas','Vital','lucas.vital@email.com','4321',1,2),(10,'Giovana','Raphaelli','giovana@raphaelli.com','4321',1,2),(11,'John','Doe','john@doe.com','4321',1,1),(12,'Pablo','Doe','pablo@doe.com','4321',1,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-02 20:37:35
+-- Dump completed on 2022-11-02 22:27:29

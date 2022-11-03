@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `dotap_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `dotap_db`;
--- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: dotap_db
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,7 @@ CREATE TABLE `solicitacoes_registros_altera` (
 
 LOCK TABLES `solicitacoes_registros_altera` WRITE;
 /*!40000 ALTER TABLE `solicitacoes_registros_altera` DISABLE KEYS */;
+INSERT INTO `solicitacoes_registros_altera` VALUES (27,39),(28,47),(30,48),(35,67),(32,71),(31,72),(33,73),(36,74);
 /*!40000 ALTER TABLE `solicitacoes_registros_altera` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-02 20:37:34
+-- Dump completed on 2022-11-02 22:27:29
